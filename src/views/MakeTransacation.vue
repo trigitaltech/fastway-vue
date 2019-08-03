@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <b-row class="mb-2">
+    <b-row class="mb-4">
       <b-col md="2">
         <b-form-select
           v-model="accountType"
@@ -18,7 +18,7 @@
                 v-model="searchText"
                 class="form-control"
                 :placeholder="searchPlaceholder"
-              >
+              />
               <span class="mdi mdi-magnify"></span>
               <div class="input-group-append">
                 <button class="btn btn-primary" @click="searchCustomer">Search</button>
@@ -30,38 +30,23 @@
     </b-row>
     <b-row class="mt-5" v-if="isLoading">
       <b-col align="center">
-        <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5"/>
+        <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5" />
       </b-col>
     </b-row>
     <b-row v-show="isPlanDetails && !isLoading">
       <b-col>
-        <b-card
-          header="Customer Details"
+        <customer-details-card :customerDetails="customerDetails"></customer-details-card>
+      </b-col>
+    </b-row>
+    <b-row v-show="isPlanDetails && !isLoading">
+      <b-col>
+        <b-card 
+          header="Plan Details"
           border-variant="info"
           header-bg-variant="primary"
-          header-text-variant="white"
-        >
-        
-          <b-row>
-            <b-col>
-              <eb-input
-                lable="Account No"
-                id="AccountNo"
-                v-model="customerDetails.ACCOUNT_NO"
-                :disabled="isInputdDisabled"
-              ></eb-input>
-            </b-col>
-            <b-col>
-              <eb-input
-                lable="User Name"
-                id="emailaddress"
-                :disabled="isInputdDisabled"
-                v-model="customerDetails.ACCOUNT_NO"
-              ></eb-input>
-            </b-col>
-          </b-row>
-
-        </b-card>
+          header-text-variant="white">
+        <eb-table :fields="planDetailsFields" :data="customerDetails.PLAN_DETAIL" :dark="dark" ></eb-table>
+        </b-card>    
       </b-col>
     </b-row>
   </div>
@@ -74,11 +59,15 @@ import axios from "axios";
 import { SemipolarSpinner } from "epic-spinners";
 import iCustomer from "@/Interface/ICustomer.ts";
 import ebInput from "@/components/FormElements/Input.vue";
+import CustomerDetailsCard from "@/components/Customer/CustomerDetailsCard.vue"
+import ebTable  from "@/components/FormElements/TableList.vue"
 
 @Component({
   components: {
     SemipolarSpinner,
-    ebInput
+    ebInput,
+    CustomerDetailsCard,
+    ebTable
   }
 })
 export default class MakeTransacation extends Vue {
@@ -95,7 +84,6 @@ export default class MakeTransacation extends Vue {
   ];
   private isPlanDetails: boolean = false;
   private isLoading: boolean = false;
-  private isInputdDisabled: boolean = true;
 
   private accountTypeChange(payload: any) {
     switch (payload) {
@@ -118,6 +106,27 @@ export default class MakeTransacation extends Vue {
         break;
     }
   }
+  private planDetailsFields: any = [
+    {
+      key: 'PLAN_NAME',
+      label: 'Plan Name',
+      sortable: true,
+    },
+    {
+      key: 'PLAN_STATUS',
+      label: 'Plan Status',
+      sortable: true,
+    },
+    {
+      key: 'PLAN_OBJ',
+      label: 'Plan Obj',
+      sortable: true,
+    },
+    {
+      key: 'DEAL_OBJ',
+      label: 'Deal Obj ',
+    },
+  ];
 
   private async searchCustomer() {
     try {
