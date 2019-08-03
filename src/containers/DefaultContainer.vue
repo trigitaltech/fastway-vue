@@ -79,19 +79,10 @@ export default {
   },
   data() {
     return {
-      search : ''
+      search : '',
     };
   },
   computed: {
-    searchText:{
-      get : function(){
-        return this.search;
-      },
-      set : function (newVal){
-        this.$store.dispatch('product/search', newVal);
-        this.search = newVal;
-      }
-    },
     name() {
       return this.$route.name;
     },

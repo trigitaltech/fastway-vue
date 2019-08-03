@@ -10,7 +10,6 @@
         :filter="filter"
         :per-page="perPage"
         :current-page="currentPage"
-        class="rounded-pill"
       >
       </b-table>
     </b-row>
@@ -43,40 +42,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import SelectComponent from './SelectComponent.vue';
 
 @Component({
   components: {
-    SelectComponent
-  }
+    SelectComponent,
+  },
 })
 export default class TableListComponent extends Vue {
 
-  private currentPage: number = 1;
-  private perPage: string = '10';
-  private perPageList = [
-        {
-            text: '10',
-            value: '10'
-        },
-        {
-            text: '50',
-            value: '50'
-        },
-        {
-            text: '100',
-            value: '100'
-        },
-        {
-            text: '150',
-            value: '150'
-        },
-        {
-            text: '200',
-            value: '200'
-        }
-    ];
   @Prop(Array)
   public readonly fields!: any[];
 
@@ -85,6 +60,30 @@ export default class TableListComponent extends Vue {
 
   @Prop(String)
   public readonly filter!: string;
+  private currentPage: number = 1;
+  private perPage: string = '10';
+  private perPageList = [
+        {
+            text: '10',
+            value: '10',
+        },
+        {
+            text: '50',
+            value: '50',
+        },
+        {
+            text: '100',
+            value: '100',
+        },
+        {
+            text: '150',
+            value: '150',
+        },
+        {
+            text: '200',
+            value: '200',
+        },
+    ];
 }
 </script>
 

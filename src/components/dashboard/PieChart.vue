@@ -1,6 +1,6 @@
 <script>
-import { Pie } from 'vue-chartjs'
-import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips'
+import { Pie } from 'vue-chartjs';
+import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
 export default {
   extends: Pie,
@@ -8,11 +8,11 @@ export default {
   data() {
     return {
       labels: [],
-      datasets :[]
-    }
+      datasets : [],
+    };
   },
-  mounted () {
-    this.labels = ['Active','Sudpended','Terminated']
+  mounted() {
+    this.labels = ['Active', 'Sudpended', 'Terminated'];
     this.datasets = [
       {
         backgroundColor: [
@@ -20,26 +20,26 @@ export default {
             '#E46651',
             '#00D8FF',
           ],
-        data: [15, 25, 35]
-      }
+        data: [15, 25, 35],
+      },
     ],
     this.renderChart(
       {
         labels: this.labels,
-        datasets: this.datasets
+        datasets: this.datasets,
       },
       {
         responsive: true,
         tooltips: {
           enabled: false,
-          custom: CustomTooltips
+          custom: CustomTooltips,
         },
         maintainAspectRatio: true,
         legend: {
-          display: true
+          display: true,
         },
-      }
-    )
-  }
-}
+      },
+    );
+  },
+};
 </script>
