@@ -82,18 +82,18 @@ export default class Login extends Vue {
   private async login() {
     try {
       if (this.userName) {
-        const data  ={
-          "USERID": this.userName,
-          "PASSWORD": this.password,
-          "DEVICEIMEI": "352356079376711"
-        }
+        const data  = {
+          USERID: this.userName,
+          PASSWORD: this.password,
+          DEVICEIMEI: '352356079376711',
+        };
         const result = await axios({
           method: 'POST',
-          url: API+'/login/',
+          url: API + '/login/',
           headers: {
-            CREDS:JSON.stringify(data)
-          }
-        })
+            CREDS: JSON.stringify(data),
+          },
+        });
         this.$store.dispatch('auth/loginUser', data);
         this.$router.push({ name: 'Dashboard' });
         this.$toasted.success('you have successfully logged in');

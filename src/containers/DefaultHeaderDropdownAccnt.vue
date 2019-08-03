@@ -38,10 +38,10 @@ export default {
   methods: {
     logout() {
       window.localStorage.setItem('setLoginUser', JSON.stringify({}));
-      this.$store.dispatch('auth/loginUser', {  
+      this.$store.dispatch('auth/loginUser', {
         USERID: '',
         DEVICEIMEI: '',
-        PASSWORD: ''
+        PASSWORD: '',
       });
       this.$router.push({name: 'login'});
       this.$toasted.info('you have successfully logged out');

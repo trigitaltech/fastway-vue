@@ -14,7 +14,7 @@ export default class Auth extends VuexModule {
     public loginUserData: iLogin = {
         USERID: '',
         DEVICEIMEI: '',
-        PASSWORD: ''
+        PASSWORD: '',
     };
 
     @Mutation
