@@ -6,9 +6,9 @@ export const getCustomerInfo = async (data: any) => {
         method: 'POST',
         url: API + '/getCustomerInfo/',
         headers: {
-            ...data
-        }
-    })
+            ...data,
+        },
+    });
     return result;
 }
 
