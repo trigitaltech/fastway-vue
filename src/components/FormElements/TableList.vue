@@ -10,6 +10,7 @@
         :filter="filter"
         :per-page="perPage"
         :current-page="currentPage"
+        class="rounded-pill"
       >
       </b-table>
     </b-row>
