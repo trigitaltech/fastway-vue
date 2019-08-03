@@ -33,20 +33,26 @@
         <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5" />
       </b-col>
     </b-row>
-    <b-row v-show="isPlanDetails && !isLoading">
+    <b-row>
       <b-col>
-        <customer-details-card :customerDetails="customerDetails"></customer-details-card>
+        <b-row v-show="isPlanDetails && !isLoading">
+          <b-col>
+            <customer-details-card :customerDetails="customerDetails"></customer-details-card>
+          </b-col>
+        </b-row>
       </b-col>
-    </b-row>
-    <b-row v-show="isPlanDetails && !isLoading">
       <b-col>
-        <b-card 
-          header="Plan Details"
-          border-variant="info"
-          header-bg-variant="primary"
-          header-text-variant="white">
-        <eb-table :fields="planDetailsFields" :data="customerDetails.PLAN_DETAIL" :dark="dark" ></eb-table>
-        </b-card>    
+        <b-row v-show="isPlanDetails && !isLoading">
+          <b-col>
+            <b-card 
+              header="Plan Details"
+              border-variant="info"
+              header-bg-variant="primary"
+              header-text-variant="white">
+            <eb-table :fields="planDetailsFields" :data="customerDetails.PLAN_DETAIL" :dark="dark" ></eb-table>
+            </b-card>    
+          </b-col>
+        </b-row>
       </b-col>
     </b-row>
   </div>
@@ -94,15 +100,6 @@ export default class MakeTransacation extends Vue {
       key: 'PLAN_STATUS',
       label: 'Plan Status',
       sortable: true,
-    },
-    {
-      key: 'PLAN_OBJ',
-      label: 'Plan Obj',
-      sortable: true,
-    },
-    {
-      key: 'DEAL_OBJ',
-      label: 'Deal Obj ',
     },
   ];
 
