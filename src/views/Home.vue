@@ -8,7 +8,7 @@
           header-bg-variant="primary"
           header-text-variant="white"
         >
-          <pie-chart />
+          <pie-chart :datasets="subscriberDetailsDatasets" :labels="subscriberlabels"/>
         </b-card>
       </b-col>
 
@@ -19,7 +19,7 @@
           header-bg-variant="primary"
           header-text-variant="white"
         >
-          <pie-chart />
+          <pie-chart :datasets="complaintDetailsDatasets" :labels="complaintlabels"/>
         </b-card>
       </b-col>
     </b-row>
@@ -55,6 +55,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import PieChart from '@/components/dashboard/PieChart.vue';
 import ebTable from '@/components/FormElements/TableList.vue';
+import { SemipolarSpinner } from "epic-spinners";
 import { API } from '@/config';
 import axios from 'axios';
 
@@ -86,7 +87,6 @@ export default class Home extends Vue {
       label: 'Action',
     },
   ];
-
   private collectionReportData: any[] = [];
 
   private packageCountFileds: any = [
@@ -101,8 +101,13 @@ export default class Home extends Vue {
       sortable: true,
     },
   ];
-
   private packageCountData: any[] = [];
+
+  private subscriberDetailsDatasets: any[] = [];
+  private complaintDetailsDatasets: any[] = [];
+  
+  private subscriberlabels: any[] = [ "Active", "Suspended", "Terminated"];
+  private complaintlabels: any[] = [ "Open", "Closed"];
 
   private async getCollectionReport() {
     const data = {
@@ -117,7 +122,6 @@ export default class Home extends Vue {
         CREDS: JSON.stringify(data),
       },
     });
-    console.log('Collection ', result);
     this.collectionReportData = result.data;
   }
 
@@ -134,12 +138,39 @@ export default class Home extends Vue {
         CREDS: JSON.stringify(data),
       },
     });
-    console.log('Package Count', result);
     this.packageCountData = result.data;
+  }
+  
+  private subscriberDetailChart() {
+    const datasets = [
+      {
+        backgroundColor: [
+            '#41B883',
+            '#E46651',
+            '#00D8FF',
+          ],
+        data: [15, 25, 35],
+      },
+    ];
+    this.subscriberDetailsDatasets = datasets;
+  } 
+
+  private complaintDetailsChart(){
+    const datasets = [
+      {
+        backgroundColor: [
+            '#41B883',
+            '#E46651',
+          ],
+        data: [75, 25],
+      },
+    ];
+    this.complaintDetailsDatasets = datasets;
   }
 
   private mounted() {
-    console.log('mouted is calling');
+    this.subscriberDetailChart();
+    this.complaintDetailsChart();
     this.getCollectionReport();
     this.getPackageCount();
   }

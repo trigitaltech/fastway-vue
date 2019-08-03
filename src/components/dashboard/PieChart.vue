@@ -1,45 +1,63 @@
 <script>
-import { Pie } from 'vue-chartjs';
-import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+import { Pie } from "vue-chartjs";
+import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 
 export default {
   extends: Pie,
-  props: ['height'],
   data() {
     return {
-      labels: [],
-      datasets : [],
-    };
+      data: [],
+      label: [],
+    }
+  },
+  props: {
+    labels: {
+      type: Array,
+      required: false
+    },
+    datasets: {
+      type: Array,
+      required: false
+    },
+    height:{
+      required: false
+    }
+  },
+  watch: {
+    datasets: function(newVal, oldVal) {
+      console.log('this is new val',newVal);
+      this.data = newVal;
+      this.drawChart();
+    },
+    labels: function(newVal, oldVal) {
+      this.label = newVal;
+      this.drawChart();
+    }
+  },
+  methods: {
+    drawChart() {
+      console.log('this is called');
+      this.renderChart(
+        {
+          labels: this.label,
+          datasets: this.data,
+        },
+        {
+          responsive: true,
+          tooltips: {
+            enabled: false,
+            custom: CustomTooltips
+          },
+          maintainAspectRatio: true,
+          legend: {
+            display: true
+          }
+        }
+      );
+    }
   },
   mounted() {
-    this.labels = ['Active', 'Sudpended', 'Terminated'];
-    this.datasets = [
-      {
-        backgroundColor: [
-            '#41B883',
-            '#E46651',
-            '#00D8FF',
-          ],
-        data: [15, 25, 35],
-      },
-    ],
-    this.renderChart(
-      {
-        labels: this.labels,
-        datasets: this.datasets,
-      },
-      {
-        responsive: true,
-        tooltips: {
-          enabled: false,
-          custom: CustomTooltips,
-        },
-        maintainAspectRatio: true,
-        legend: {
-          display: true,
-        },
-      },
-    );
-  },
+    this.drawChart();
+  }
 };
 </script>
