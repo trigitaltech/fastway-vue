@@ -17,7 +17,7 @@
     <b-row>
         <b-col md="12" lg="12">
             <b-card header="Collection Report" border-variant="info" header-bg-variant="primary" header-text-variant="white">
-                <eb-table :fields="packageCountFields" :data="collectionReportData" class="rounded-pill"></eb-table>
+                <eb-table :fields="packageCountFields" :data="collectionReportData"></eb-table>
             </b-card>
         </b-col>
     </b-row>

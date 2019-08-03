@@ -94,6 +94,8 @@ export default class Login extends Vue {
             CREDS:JSON.stringify(data)
           }
         })
+        this.$store.dispatch('auth/loginUser', data);
+        this.$router.push({ name: 'Dashboard' });
         this.$toasted.success('you have successfully logged in');
       }
     } catch (e) {

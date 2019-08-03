@@ -5,8 +5,6 @@ import Logout from '@/views/Authentication/Logout.vue';
 import RecoverPassword from '@/views/Authentication/RecoverPassword.vue';
 import DefaultContainer from '@/containers/DefaultContainer.vue';
 import Home from '@/views/Home.vue';
-import ProductList from '@/views/Product/ProductList.vue';
-import ProductDetails from '@/views/Product/ProductDetails.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -20,25 +18,6 @@ export default new Router({
         {
           path: '',
           component: Home
-        },
-        {
-          path: 'product',
-          component: {
-            render(c) { return c('router-view'); },
-          },
-          meta: { label: 'Product' },
-          children: [
-            {
-              path: '',
-              component: ProductList,
-            },
-            {
-              path: 'details',
-              name: 'productDetail',
-              component: ProductDetails,
-              meta: { label : 'Product Detail' },
-            },
-          ],
         },
       ],
     },

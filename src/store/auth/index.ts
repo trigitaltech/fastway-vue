@@ -4,19 +4,22 @@ import {
     Mutation,
     Action,
 } from 'vuex-module-decorators';
+import iLogin from '@/Interface/ILogin';
 
 @Module({
     namespaced: true,
 })
 export default class Auth extends VuexModule {
 
-    public data = {
-        _id: null,
+    public loginUserData: iLogin = {
+        USERID: '',
+        DEVICEIMEI: '',
+        PASSWORD: ''
     };
 
     @Mutation
     public setLoginUser(data: any) {
-        this.data = { ...data };
+        this.loginUserData = data;
     }
 
     @Action({ commit: 'setLoginUser' })
@@ -24,16 +27,11 @@ export default class Auth extends VuexModule {
         return data;
     }
 
-    get isAuthed() {
-        return this.data && this.data._id != null;
-    }
-
     get getloginUser() {
-        return this.data;
+        return this.loginUserData;
     }
 
     get getUserID() {
-        return this.data._id;
+        return this.loginUserData.USERID;
     }
-
 }

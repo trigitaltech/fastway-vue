@@ -2,38 +2,14 @@
   <div class="app">
     <AppHeader fixed>
       <SidebarToggler class="d-lg-none" display="md" mobile />
-      <b-link class="navbar-brand eb-navbar-brand" to="#">
+      <b-link class="navbar-brand" to="/">
         <span class="navbar-brand-full"><img src="@/assets/images/fastway.png" class="w-50 "/></span>
-        <span class="navbar-brand-minimized">N</span>
       </b-link>
-      <SidebarToggler class="d-md-down-none" display="lg" />
-      <b-navbar-nav class="d-md-down-none">
-        <b-nav-item class="px-3">
-          <div class="app-search">
-            <form>
-              <div class="input-group">
-                <input type="text" v-model="searchText" class="form-control" placeholder="Search..." />
-                <span class="mdi mdi-magnify"></span>
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="submit">Search</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </b-nav-item>
-      </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <DefaultHeaderDropdownAccnt />
       </b-navbar-nav>
     </AppHeader>
     <div class="app-body">
-      <AppSidebar fixed>
-        <SidebarHeader />
-        <SidebarForm />
-        <SidebarNav :navItems="nav"></SidebarNav>
-        <SidebarFooter />
-        <SidebarMinimizer />
-      </AppSidebar>
       <main class="main">
         <Breadcrumb :list="list" />
         <div class="container-fluid">
@@ -50,13 +26,13 @@
         <div class="row">
           <div class="col-md-6">
             2018 - 2019 ©
-            <a href>Trigital</a> - Nipige.com
+            <a href="http://trigital.in">Trigital</a> - Fastway
           </div>
           <div class="col-md-6">
             <div class="text-md-right footer-links d-none d-md-block">
-              <a href="#" class="mr-2">About</a>
-              <a href="#" class="mr-2">Support</a>
-              <a href="#" class="mr-2">Contact Us</a>
+              <a href="http://fastway.in/introduction.php" target="_blank" class="mr-2">About</a>
+              <a href="http://fastway.in/lcocomplaint/" target="_blank" class="mr-2">Support</a>
+              <a href="http://fastway.in/contact-us-99.php" target="_blank" class="mr-2">Contact Us</a>
             </div>
           </div>
         </div>
@@ -66,7 +42,6 @@
 </template>
 
 <script>
-import nav from '@/_nav';
 import {
   Header as AppHeader,
   SidebarToggler,
@@ -104,7 +79,6 @@ export default {
   },
   data() {
     return {
-      nav: nav.items,
       search : ''
     };
   },
