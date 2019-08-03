@@ -4,12 +4,6 @@ import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 
 export default {
   extends: Pie,
-  data() {
-    return {
-      data: [],
-      label: [],
-    }
-  },
   props: {
     labels: {
       type: Array,
@@ -19,28 +13,24 @@ export default {
       type: Array,
       required: false
     },
-    height:{
+    height: {
       required: false
     }
   },
   watch: {
-    datasets: function(newVal, oldVal) {
-      console.log('this is new val',newVal);
-      this.data = newVal;
+    datasets: function() {
       this.drawChart();
     },
-    labels: function(newVal, oldVal) {
-      this.label = newVal;
+    labels: function() {
       this.drawChart();
     }
   },
   methods: {
     drawChart() {
-      console.log('this is called');
       this.renderChart(
         {
-          labels: this.label,
-          datasets: this.data,
+          labels: this.labels,
+          datasets: this.datasets
         },
         {
           responsive: true,

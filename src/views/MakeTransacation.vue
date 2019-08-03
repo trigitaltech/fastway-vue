@@ -69,8 +69,6 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { getCustomerInfo } from "@/services";
-import { API } from "@/config";
-import axios from "axios";
 import { SemipolarSpinner } from "epic-spinners";
 import iCustomer from "@/Interface/ICustomer.ts";
 import ebInput from "@/components/FormElements/Input.vue";
