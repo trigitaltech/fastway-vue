@@ -52,60 +52,38 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
-import { getCustomerInfo } from "@/services";
-import { API } from "@/config";
-import axios from "axios";
-import { SemipolarSpinner } from "epic-spinners";
-import iCustomer from "@/Interface/ICustomer.ts";
-import ebInput from "@/components/FormElements/Input.vue";
-import CustomerDetailsCard from "@/components/Customer/CustomerDetailsCard.vue"
-import ebTable  from "@/components/FormElements/TableList.vue"
+import { Vue, Component } from 'vue-property-decorator';
+import { getCustomerInfo } from '@/services';
+import { API } from '@/config';
+import axios from 'axios';
+import { SemipolarSpinner } from 'epic-spinners';
+import iCustomer from '@/Interface/ICustomer.ts';
+import ebInput from '@/components/FormElements/Input.vue';
+import CustomerDetailsCard from '@/components/Customer/CustomerDetailsCard.vue';
+import ebTable from '@/components/FormElements/TableList.vue';
 
 @Component({
   components: {
     SemipolarSpinner,
     ebInput,
     CustomerDetailsCard,
-    ebTable
-  }
+    ebTable,
+  },
 })
 export default class MakeTransacation extends Vue {
   private customerDetails: iCustomer = {};
-  private searchText: string = "";
-  private searchPlaceholder = "Enter Account Number";
+  private searchText: string = '';
+  private searchPlaceholder = 'Enter Account Number';
   private accountType = null;
   private searchOption = [
-    { value: null, text: "Select Account Type", disabled: true },
-    { value: "ACC", text: "Account No" },
-    { value: "VC", text: "VC" },
-    { value: "STB", text: "STB" },
-    { value: "RMN", text: "RMN" }
+    { value: null, text: 'Select Account Type', disabled: true },
+    { value: 'ACC', text: 'Account No' },
+    { value: 'VC', text: 'VC' },
+    { value: 'STB', text: 'STB' },
+    { value: 'RMN', text: 'RMN' },
   ];
   private isPlanDetails: boolean = false;
   private isLoading: boolean = false;
-
-  private accountTypeChange(payload: any) {
-    switch (payload) {
-      case "ACC":
-        this.searchText = "CR-1053091263";
-        break;
-      case "VC":
-        this.searchText = "";
-        this.searchPlaceholder = "Enter VC Number";
-        break;
-      case "STB":
-        this.searchText = "";
-        this.searchPlaceholder = "Enter STB Number";
-        break;
-      case "RMN":
-        this.searchText = "";
-        this.searchPlaceholder = "Enter RMN Number";
-        break;
-      default:
-        break;
-    }
-  }
   private planDetailsFields: any = [
     {
       key: 'PLAN_NAME',
@@ -128,17 +106,38 @@ export default class MakeTransacation extends Vue {
     },
   ];
 
+  private accountTypeChange(payload: any) {
+    switch (payload) {
+      case 'ACC':
+        this.searchText = 'CR-1053091263';
+        break;
+      case 'VC':
+        this.searchText = '';
+        this.searchPlaceholder = 'Enter VC Number';
+        break;
+      case 'STB':
+        this.searchText = '';
+        this.searchPlaceholder = 'Enter STB Number';
+        break;
+      case 'RMN':
+        this.searchText = '';
+        this.searchPlaceholder = 'Enter RMN Number';
+        break;
+      default:
+        break;
+    }
+  }
   private async searchCustomer() {
     try {
       const cred = {
-        USERID: "NARINDER1",
-        PASSWORD: "Fastway@123",
-        DEVICEIMEI: "352356079376711"
+        USERID: 'NARINDER1',
+        PASSWORD: 'Fastway@123',
+        DEVICEIMEI: '352356079376711',
       };
       const data = {
         CREDS: JSON.stringify(cred),
         PARAMS: this.searchText,
-        TYPE: this.accountType
+        TYPE: this.accountType,
       };
       this.isLoading = true;
       const result = await getCustomerInfo(data);

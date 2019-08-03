@@ -58,7 +58,6 @@ export default class TableListComponent extends Vue {
 
   @Prop(Array)
   public readonly data!: any[];
- 
   @Prop(String)
   public readonly filter!: string;
   private currentPage: number = 1;

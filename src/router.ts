@@ -24,8 +24,8 @@ export default new Router({
         {
           path: 'customer',
           meta: { label: 'customer '},
-          component: Customer
-        }
+          component: Customer,
+        },
       ],
     },
     {
