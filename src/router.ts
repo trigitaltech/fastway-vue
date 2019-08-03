@@ -6,6 +6,7 @@ import RecoverPassword from '@/views/Authentication/RecoverPassword.vue';
 import DefaultContainer from '@/containers/DefaultContainer.vue';
 import Home from '@/views/Home.vue';
 import Customer from '@/views/MakeTransacation.vue';
+import AddPlan from '@/views/AddPlan.vue';
 
 Vue.use(Router);
 
@@ -26,6 +27,11 @@ export default new Router({
           meta: { label: 'customer '},
           component: Customer,
         },
+        {
+          path: '/addPlan',
+          name: 'addPlan',
+          component: AddPlan,
+        }
       ],
     },
     {

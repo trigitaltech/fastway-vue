@@ -49,7 +49,27 @@
               border-variant="info"
               header-bg-variant="primary"
               header-text-variant="white">
-            <eb-table :fields="planDetailsFields" :data="customerDetails.PLAN_DETAIL" :dark="dark" ></eb-table>
+               
+          <div>
+            
+            <div class="input-group">
+              
+              <input
+                type="text"
+                
+                class="form-control"
+              />
+              <span class="mdi mdi-magnify"></span>
+              <div class="input-group-append">                
+              <b-button class= "mb-3 btn-brand" variant="primary">Search</b-button>
+              <router-link to="/addPlan">
+              <b-button class= "ml-5 mb-3 btn-brand" variant="primary">Add Plan</b-button>
+              </router-link>                
+              </div>
+            </div>
+          </div>
+        
+            <eb-table :fields="planDetailsFields" :data="customerDetails.PLAN_DETAIL"></eb-table>
             </b-card>    
           </b-col>
         </b-row>

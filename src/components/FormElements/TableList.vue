@@ -10,7 +10,6 @@
         :filter="filter"
         :per-page="perPage"
         :current-page="currentPage"
-        :dark="dark"
       >
       </b-table>
     </b-row>
