@@ -41,20 +41,20 @@
           header-bg-variant="primary"
           header-text-variant="white"
         >
+        
           <b-row>
             <b-col>
               <eb-input
-                lable="User Name"
-                id="emailaddress"
-                placeholder="Enter User Name"
-                v-model="userName"
+                lable="Account No"
+                id="AccountNo"
+                v-model="customerDetails.ACCOUNT_NO"
+                :disabled="isInputdDisabled"
               ></eb-input>
             </b-col>
             <b-col>
               <eb-input
                 lable="User Name"
                 id="emailaddress"
-                placeholder="Account No"
                 :disabled="isInputdDisabled"
                 v-model="customerDetails.ACCOUNT_NO"
               ></eb-input>
