@@ -5,6 +5,8 @@ import Logout from '@/views/Authentication/Logout.vue';
 import RecoverPassword from '@/views/Authentication/RecoverPassword.vue';
 import DefaultContainer from '@/containers/DefaultContainer.vue';
 import Home from '@/views/Home.vue';
+import Customer from '@/views/MakeTransacation.vue';
+
 Vue.use(Router);
 
 export default new Router({
@@ -19,6 +21,11 @@ export default new Router({
           path: '',
           component: Home
         },
+        {
+          path: 'customer',
+          meta: { label: 'customer '},
+          component: Customer
+        }
       ],
     },
     {

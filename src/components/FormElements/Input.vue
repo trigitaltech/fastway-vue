@@ -13,6 +13,8 @@
       :placeholder="placeholder"
       required
       :class="classic"
+      :value="value"
+      :disabled="disabled"
       @input="e=>$emit('input',e.target.value)"
     >
   </div>
@@ -24,6 +26,9 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
   components: {},
 })
 export default class Input extends Vue {
+  @Prop({ default: '' })
+  private value!: string;
+
   @Prop({ default: 'text' })
   private type!: string;
 
@@ -47,5 +52,8 @@ export default class Input extends Vue {
 
   @Prop()
   private classic!: string;
+
+  @Prop()
+  private disabled!: boolean;
 }
 </script>
