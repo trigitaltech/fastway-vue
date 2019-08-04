@@ -28,6 +28,7 @@ export default class Auth extends VuexModule {
     }
 
     get getloginUser() {
+        console.log('this is getter called',this.loginUserData);
         return this.loginUserData;
     }
 

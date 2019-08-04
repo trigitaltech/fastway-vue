@@ -1,24 +1,26 @@
 <template>
   <div class="app">
     <AppHeader fixed>
-      <SidebarToggler class="d-lg-none" display="md" mobile />
+      <SidebarToggler class="d-lg-none" display="md" mobile/>
       <b-link class="navbar-brand" to="/">
-        <span class="navbar-brand-full"><img src="@/assets/images/fastway.png" class="w-50 "/></span>
+        <span class="navbar-brand-full">
+          <img src="@/assets/images/fastway.png" class="w-50">
+        </span>
       </b-link>
       <b-navbar-nav class="ml-auto">
-        <DefaultHeaderDropdownAccnt />
+        <DefaultHeaderDropdownAccnt/>
       </b-navbar-nav>
     </AppHeader>
     <div class="app-body">
       <main class="main">
-        <Breadcrumb :list="list" />
+        <Breadcrumb :list="list"/>
         <div class="container-fluid">
           <router-view></router-view>
         </div>
       </main>
       <AppAside fixed>
         <!--aside-->
-        <DefaultAside />
+        <DefaultAside/>
       </AppAside>
     </div>
     <TheFooter>
@@ -26,7 +28,7 @@
         <div class="row">
           <div class="col-md-6">
             2018 - 2019 ©
-            <a href="http://trigital.in">Trigital</a> - Fastway
+            <a href="http://trigital.in">Trigital</a>- Fastway
           </div>
           <div class="col-md-6">
             <div class="text-md-right footer-links d-none d-md-block">
@@ -54,13 +56,13 @@ import {
   Aside as AppAside,
   AsideToggler,
   Footer as TheFooter,
-  Breadcrumb,
-} from '@/components';
-import DefaultAside from './DefaultAside';
-import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt';
+  Breadcrumb
+} from "@/components";
+import DefaultAside from "./DefaultAside";
+import DefaultHeaderDropdownAccnt from "./DefaultHeaderDropdownAccnt";
 
 export default {
-  name: 'DefaultContainer',
+  name: "DefaultContainer",
   components: {
     AsideToggler,
     AppHeader,
@@ -75,11 +77,11 @@ export default {
     SidebarToggler,
     SidebarHeader,
     SidebarNav,
-    SidebarMinimizer,
+    SidebarMinimizer
   },
   data() {
     return {
-      search : '',
+      search: ""
     };
   },
   computed: {
@@ -88,10 +90,10 @@ export default {
     },
     list() {
       return this.$route.matched.filter(
-        (route) => route.name || route.meta.label,
+        route => route.name || route.meta.label
       );
-    },
-  },
+    }
+  }
 };
 </script>
 <style>
@@ -117,27 +119,25 @@ export default {
   }
 }
 @media only screen and (max-width: 992px) {
-.app-search {
-   display: block !important;
-}
-}
-
-@media (max-width: 575.98px){
-
-.sidebar-show .main::before, .aside-menu-show .main::before {
-background: none !important
-}
-}
-@media (min-width: 575.98px){
-.header-fixed .app-header{
-position:fixed;
-}
-}
-@media (min-width: 200.98px){
-.header-fixed .app-header{
-position:fixed;
-}
+  .app-search {
+    display: block !important;
+  }
 }
 
-
+@media (max-width: 575.98px) {
+  .sidebar-show .main::before,
+  .aside-menu-show .main::before {
+    background: none !important;
+  }
+}
+@media (min-width: 575.98px) {
+  .header-fixed .app-header {
+    position: fixed;
+  }
+}
+@media (min-width: 200.98px) {
+  .header-fixed .app-header {
+    position: fixed;
+  }
+}
 </style>

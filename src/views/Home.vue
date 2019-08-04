@@ -223,7 +223,6 @@ export default class Home extends Vue {
         PARAMS: 7
       };
       const result = await openAndClosedComplaintsCount(data);
-      console.log('this is log',result);
       const datasets = [
         {
           backgroundColor: ["#41B883", "#E46651"],

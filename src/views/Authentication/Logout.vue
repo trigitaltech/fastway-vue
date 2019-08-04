@@ -52,8 +52,7 @@
                       stroke-width="6"
                       stroke-linecap="round"
                       stroke-miterlimit="10"
-                      points="113,52.8
-                                            74.1,108.4 48.2,86.4 "
+                      points="113,52.8 74.1,108.4 48.2,86.4 "
                     ></polyline>
                     <circle
                       class="spin"

@@ -17,9 +17,10 @@ export default new Router({
       path: '/',
       name: 'Dashboard',
       component: DefaultContainer,
+      redirect: 'home',
       beforeEnter: (to, from, next) => {
         let user = JSON.parse(localStorage.getItem("user") as string);
-        if(store.getters['auth/getUserID'] || user){
+        if(Object.keys(user).length > 0){
           next();
         }
         else{
@@ -29,7 +30,7 @@ export default new Router({
       meta: { label: 'Dashboard' },
       children: [
         {
-          path: '',
+          path: 'home',
           component: Home,
           meta: {
             requiresAuth: true,

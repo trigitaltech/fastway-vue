@@ -95,8 +95,9 @@ export default class Login extends Vue {
           },
         });
         this.$store.dispatch('auth/loginUser', data);
-        this.$router.push({ name: 'Dashboard' });
+        localStorage.setItem("user", JSON.stringify(data));
         this.$toasted.success('you have successfully logged in');
+        this.$router.push({ name: 'Dashboard' });
       }
     } catch (e) {
       this.$toasted.error(e.response.data);

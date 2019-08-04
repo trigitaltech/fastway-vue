@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-import {store} from './store/store';
+import { store } from './store/store';
 import BootstrapVue from 'bootstrap-vue';
 import './registerServiceWorker';
 import './assets/scss/custom.scss';
@@ -25,8 +25,7 @@ Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 
 let user = JSON.parse(localStorage.getItem("user") as string);
-store.dispatch("auth/loginUser", user);
-
+store.dispatch('auth/loginUser', user);
 new Vue({
   router,
   store,

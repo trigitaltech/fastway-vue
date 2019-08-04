@@ -32,12 +32,12 @@ export default {
   },
   data: () => {
     return {
-      USERID: null,
+      
     };
   },
   methods: {
     logout() {
-      window.localStorage.setItem('setLoginUser', JSON.stringify({}));
+      window.localStorage.setItem('user', JSON.stringify({}));
       this.$store.dispatch('auth/loginUser', {
         USERID: '',
         DEVICEIMEI: '',
@@ -47,9 +47,10 @@ export default {
       this.$toasted.info('you have successfully logged out');
     },
   },
-  mounted() {
-   const user = this.$store.getters['auth/getUserID'];
-   this.USERID = user;
-  },
+  computed:{
+    USERID(){
+      return this.$store.getters['auth/getUserID'];
+    }
+  }
 };
 </script>
