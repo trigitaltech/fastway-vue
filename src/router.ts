@@ -38,21 +38,29 @@ export default new Router({
         },
         {
           path: 'customer',
+          component: {
+            render(c) { return c('router-view'); },
+          },
           meta: { 
             label: 'Customer',
             requiresAuth: true,
           },
-          component: Customer,
+          children:[
+            {
+              path: '',
+              component: Customer,
+            },
+            {
+              path: 'add-plan',
+              name: 'addPlan',
+              component: AddPlan,
+              meta: {
+                label: 'Add New Plan',
+                requiresAuth: true,
+              }
+            }
+          ]
         },
-        {
-          path: '/addPlan',
-          name: 'addPlan',
-          component: AddPlan,
-          meta: {
-            label: 'Add Plan',
-            requiresAuth: true,
-          }
-        }
       ],
     },
     {

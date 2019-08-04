@@ -13,8 +13,8 @@
         alt="support@nipige.com" />Sign in
     </template>
     <template slot="dropdown">
-        <b-dropdown-item><i class="fa fa-bell-o" /> Home </b-dropdown-item>
-        <b-dropdown-item ><i class="fa fa-envelope-o" /> Make Transaction</b-dropdown-item>
+        <b-dropdown-item><i class="fa fa-bell-o" /> <router-link to="/home"> Home </router-link></b-dropdown-item>
+        <b-dropdown-item><i class="fa fa-envelope-o" /> <router-link to="/customer"> Make Transaction</router-link></b-dropdown-item>
         <b-dropdown-item><i class="fa fa-user" /> Search Tarnsaction</b-dropdown-item>
         <b-dropdown-divider />
         <b-dropdown-item><i class="fa fa-shield" /> Lock Account</b-dropdown-item>

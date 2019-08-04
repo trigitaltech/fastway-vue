@@ -53,23 +53,21 @@
           <div>
             
             <div class="input-group">
-              
               <input
                 type="text"
-                
                 class="form-control"
               />
               <span class="mdi mdi-magnify"></span>
               <div class="input-group-append">                
               <b-button class= "mb-3 btn-brand" variant="primary">Search</b-button>
-              <router-link to="/addPlan">
+              <router-link to="add-plan">
               <b-button class= "ml-5 mb-3 btn-brand" variant="primary">Add Plan</b-button>
               </router-link>                
               </div>
             </div>
           </div>
         
-            <eb-table :fields="planDetailsFields" :data="customerDetails.PLAN_DETAIL"></eb-table>
+            <eb-table :fields="planDetailsFields" :data="PLAN_DETAIL"></eb-table>
             </b-card>    
           </b-col>
         </b-row>
@@ -98,6 +96,7 @@ import ebTable from '@/components/FormElements/TableList.vue';
 })
 export default class MakeTransacation extends Vue {
   private customerDetails: iCustomer = {};
+  private PLAN_DETAIL: any[] = [];
   private searchText: string = '';
   private searchPlaceholder = 'Enter Account Number';
   private accountType = null;
@@ -156,6 +155,8 @@ export default class MakeTransacation extends Vue {
       this.isLoading = true;
       const result = await getCustomerInfo(data);
       this.customerDetails = result.data;
+      const active: any[] = this.customerDetails.PLAN_DETAIL;
+      this.PLAN_DETAIL = active.filter(e => e.PLAN_STATUS === "Active");
       this.isLoading = false;
       this.isPlanDetails = true;
     } catch (e) {
