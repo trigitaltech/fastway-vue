@@ -143,16 +143,13 @@ export default class MakeTransacation extends Vue {
       default:
         break;
     }
+  
   }
+  
   private async searchCustomer() {
     try {
-      const cred = {
-        USERID: 'NARINDER1',
-        PASSWORD: 'Fastway@123',
-        DEVICEIMEI: '352356079376711',
-      };
       const data = {
-        CREDS: JSON.stringify(cred),
+        CREDS: JSON.stringify(this.CREDS),
         PARAMS: this.searchText,
         TYPE: this.accountType,
       };
@@ -166,6 +163,10 @@ export default class MakeTransacation extends Vue {
       this.isPlanDetails = false;
       this.$toasted.error(e.response.data);
     }
+  }
+
+  get CREDS() {
+    return this.$store.getters['auth/getloginUser'];
   }
 }
 </script>
