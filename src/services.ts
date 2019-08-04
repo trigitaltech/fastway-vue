@@ -17,7 +17,8 @@ export const openAndClosedComplaintsCount = async (data: any) =>{
         method: 'POST',
         url: API + '/openAndClosedComplaintsCount/',
         headers: {
-            ...data
+            CREDS: JSON.stringify(data),
+            PARAMS: 7
         }
     })
     return result;
@@ -28,8 +29,30 @@ export const totalSubscriberCount = async (data: any) =>{
         method: 'POST',
         url: API + '/totalSubscriberCount/',
         headers: {
-            ...data
+            CREDS: JSON.stringify(data)
         }
     })
+    return result;
+}
+
+export const subscriberWiseActivePkgCount = async (data: any) =>{
+    const result = await axios({
+        method: "POST",
+        url: API + "/subscriberWiseActivePkgCount/",
+        headers: {
+          CREDS: JSON.stringify(data)
+        }
+    });
+    return result;
+}
+
+export const dailyAndWeeklyCollectionReport = async (data: any) =>{
+    const result = await axios({
+        method: "POST",
+        url: API + "/dailyAndWeeklyCollectionReport/",
+        headers: {
+            CREDS: JSON.stringify(data)
+        }
+    });
     return result;
 }

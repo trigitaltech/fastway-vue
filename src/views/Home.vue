@@ -62,7 +62,7 @@
           header-text-variant="white">
           <div v-if="isPackageCountData">
             <eb-table :fields="packageCountFileds" :data="packageCount" v-if="packageCount.length > 0"></eb-table>
-            <div class="text-center font-weight-bold">No Data Available.</div>
+            <div class="text-center font-weight-bold" v-else>No Data Available.</div>
           </div>
           <b-row class="mt-5 mb-5" v-else>
             <b-col align="center">
@@ -79,7 +79,7 @@ import { Vue, Component } from "vue-property-decorator";
 import PieChart from "@/components/dashboard/PieChart.vue";
 import ebTable from "@/components/FormElements/TableList.vue";
 import { SemipolarSpinner } from "epic-spinners";
-import { openAndClosedComplaintsCount,totalSubscriberCount } from "@/services";
+import { openAndClosedComplaintsCount,totalSubscriberCount,subscriberWiseActivePkgCount, dailyAndWeeklyCollectionReport } from "@/services";
 import { API } from "@/config";
 import axios from "axios";
 
@@ -137,57 +137,26 @@ export default class Home extends Vue {
   private complaintDetailsDatasets: any[] = [];
 
   private subscriberlabels: any[] = [];
-  private complaintlabels: any[] = ["Open", "Closed"];
+  private complaintlabels: any[] = [];
   private colors: any[] = ["#41B883", "#E46651", "#00D8FF"];
 
   private async getCollectionReport() {
-    const data = {
-      USERID: "NARINDER1",
-      PASSWORD: "Fastway@123",
-      DEVICEIMEI: "352356079376711"
-    };
-    const result = await axios({
-      method: "POST",
-      url: API + "/dailyAndWeeklyCollectionReport/",
-      headers: {
-        CREDS: JSON.stringify(data)
-      }
-    });
+    const result = await dailyAndWeeklyCollectionReport(this.CREDS)
     this.collectionReportData = result.data;
     this.isCollectionReport = true;
   }
 
   private async getPackageCount() {
-    const data = {
-      USERID: "NARINDER1",
-      PASSWORD: "Fastway@123",
-      DEVICEIMEI: "352356079376711"
-    };
-    const result = await axios({
-      method: "POST",
-      url: API + "/subscriberWiseActivePkgCount/",
-      headers: {
-        CREDS: JSON.stringify(data)
-      }
-    });
+    const result = await subscriberWiseActivePkgCount(this.CREDS);
     this.packageCountData = result.data;
     this.isPackageCountData = true;
   }
 
   private async subscriberDetailChart() {
     try {
-       const cred = {
-        USERID: "NARINDER1",
-        PASSWORD: "Fastway@123",
-        DEVICEIMEI: "352356079376711"
-      };
-      const data = {
-        CREDS: JSON.stringify(cred),
-      };
-      const result = await totalSubscriberCount(data);
+      const result = await totalSubscriberCount(this.CREDS);
       const output = result.data;
       
-
       let lbl: any[] = [];
       let count: any[] = [];
       let color: any[] = [];
@@ -213,23 +182,26 @@ export default class Home extends Vue {
 
   private async complaintDetailsChart() {
     try {
-      const cred = {
-        USERID: "cableadmin",
-        PASSWORD: "Fastway@Live",
-        DEVICEIMEI: "352356079376711"
-      };
-      const data = {
-        CREDS: JSON.stringify(cred),
-        PARAMS: 7
-      };
-      const result = await openAndClosedComplaintsCount(data);
-      const datasets = [
-        {
-          backgroundColor: ["#41B883", "#E46651"],
-          data: [75, 25]
-        }
-      ];
+      const result = await openAndClosedComplaintsCount(this.CREDS);
+      const output = result.data;
+      console.log(output);
+      let lbl: any[] = [];
+      let count: any[] = [];
+      let color: any[] = [];
+
+      output.map((e: any,idx: any)=>{
+        lbl.push(e.STATUS);
+        count.push(e['COUNT(1)']);
+        color.push(this.colors[idx]);
+      })
+      
+      let datasets = [{
+        backgroundColor:color,
+        data: count
+      }];
+
       this.complaintDetailsDatasets = datasets;
+      this.complaintlabels = lbl;
       this.isComplaintDetails = true;
     } catch (error) {
       console.log("error", error);
@@ -249,6 +221,10 @@ export default class Home extends Vue {
 
   get collectionReport() {
     return this.collectionReportData;
+  }
+
+  get CREDS() {
+    return this.$store.getters['auth/getloginUser'];
   }
 }
 </script>

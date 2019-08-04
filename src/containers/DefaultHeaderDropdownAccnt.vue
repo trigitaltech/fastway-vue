@@ -14,7 +14,7 @@
     </template>
     <template slot="dropdown">
         <b-dropdown-item><i class="fa fa-bell-o" /> Home </b-dropdown-item>
-        <b-dropdown-item><i class="fa fa-envelope-o" /> Make Transaction</b-dropdown-item>
+        <b-dropdown-item ><i class="fa fa-envelope-o" /> Make Transaction</b-dropdown-item>
         <b-dropdown-item><i class="fa fa-user" /> Search Tarnsaction</b-dropdown-item>
         <b-dropdown-divider />
         <b-dropdown-item><i class="fa fa-shield" /> Lock Account</b-dropdown-item>
@@ -29,11 +29,6 @@ export default {
   name: 'DefaultHeaderDropdownAccnt',
   components: {
     AppHeaderDropdown,
-  },
-  data: () => {
-    return {
-      
-    };
   },
   methods: {
     logout() {
