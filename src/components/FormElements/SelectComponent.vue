@@ -36,7 +36,6 @@ export default class SelectComponent extends Vue {
 <style lang="scss" scoped>
 select {
   font-size: 12px;
-  height: 42px;
   -webkit-appearance: none;
 }
 </style>

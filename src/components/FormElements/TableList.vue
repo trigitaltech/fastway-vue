@@ -1,7 +1,8 @@
 <template>
   <div>
-    <b-row class="table-standard mb-4">
+    <b-row>
       <b-table
+        hover
         head-variant="light"
         table-class="table-events-list"
         :responsive="true"
@@ -10,6 +11,7 @@
         :filter="filter"
         :per-page="perPage"
         :current-page="currentPage"
+        outlined
       >
       </b-table>
     </b-row>
@@ -18,13 +20,14 @@
       <div class="col-md d-flex align-items-center">
         <span class="mr-2">Show</span>
         <select-component
-          class="select-per-page w-25"
+          class="select-per-page"
+          :class="cssClass"
           :options="perPageList"
           v-model="perPage"
         ></select-component>
         <span class="ml-2">per page</span>
       </div>
-      <div class="col-md">
+      <div class="col-md mt-2">
         <b-pagination
           class="paginate-events"
           :total-rows="data.length"
@@ -57,8 +60,13 @@ export default class TableListComponent extends Vue {
 
   @Prop(Array)
   public readonly data!: any[];
+
   @Prop(String)
   public readonly filter!: string;
+  
+  @Prop({ default: 'w-25' })
+  public readonly cssClass!: string;
+
   private currentPage: number = 1;
   private perPage: string = '10';
   private perPageList = [
