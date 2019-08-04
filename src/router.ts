@@ -19,11 +19,15 @@ export default new Router({
       component: DefaultContainer,
       redirect: 'home',
       beforeEnter: (to, from, next) => {
-        let user = JSON.parse(localStorage.getItem("user") as string);
-        if(Object.keys(user).length > 0){
-          next();
-        }
-        else{
+        try{
+          let user = JSON.parse(localStorage.getItem("user") as string);
+          if(Object.keys(user).length > 0){
+            next();
+          }
+          else{
+            next('Login');
+          }
+        }catch(e){
           next('Login');
         }
       },

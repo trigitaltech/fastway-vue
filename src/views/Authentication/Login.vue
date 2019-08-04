@@ -76,8 +76,8 @@ import axios from 'axios';
   },
 })
 export default class Login extends Vue {
-  private userName: string = ' ';
-  private password: string = ' ';
+  private userName: string = '';
+  private password: string = '';
 
   private async login() {
     try {
