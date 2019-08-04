@@ -6,9 +6,15 @@
           header="Subscriber Details"
           border-variant="info"
           header-bg-variant="primary"
-          header-text-variant="white"
-        >
-          <pie-chart :datasets="subscriberDetailsDatasets" :labels="subscriberlabels" id="b"></pie-chart>
+          header-text-variant="white">
+          <div v-if="isSubscriberDetails">
+            <pie-chart :datasets="subscriberDetailsDatasets" :labels="subscriberlabels" id="b"></pie-chart>
+          </div>
+          <b-row class="mt-5 mb-5 pt-4 pb-3" v-else>
+            <b-col align="center">
+              <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5" />
+            </b-col>
+          </b-row>
         </b-card>
       </b-col>
       <b-col sm="12" lg="6">
@@ -16,9 +22,15 @@
           header="Complaint Details"
           border-variant="info"
           header-bg-variant="primary"
-          header-text-variant="white"
-        >
-          <pie-chart :datasets="complaintDetailsDatasets" :labels="complaintlabels" id="a"></pie-chart>
+          header-text-variant="white">
+          <div v-if="isComplaintDetails">
+            <pie-chart :datasets="complaintDetailsDatasets" :labels="complaintlabels" id="a"></pie-chart>
+          </div>
+          <b-row class="mt-5 mb-5 pt-4 pb-3" v-else>
+            <b-col align="center">
+              <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5" />
+            </b-col>
+          </b-row>
         </b-card>
       </b-col>
     </b-row>
@@ -28,9 +40,16 @@
           header="Collection Report"
           border-variant="info"
           header-bg-variant="primary"
-          header-text-variant="white"
-        >
-          <eb-table :fields="collectionReportFields" :data="collectionReport"></eb-table>
+          header-text-variant="white">
+          <div v-if="isCollectionReport">
+            <eb-table :fields="collectionReportFields" :data="collectionReport" v-if="collectionReport.length > 0"></eb-table>
+            <div class="text-center font-weight-bold">No Data Available.</div>
+          </div>
+          <b-row class="mt-5 mb-5" v-else>
+            <b-col align="center">
+              <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5" />
+            </b-col>
+          </b-row>
         </b-card>
       </b-col>
     </b-row>
@@ -40,9 +59,16 @@
           header="Package Count Data"
           border-variant="info"
           header-bg-variant="primary"
-          header-text-variant="white"
-        >
-          <eb-table :fields="packageCountFileds" :data="packageCount"></eb-table>
+          header-text-variant="white">
+          <div v-if="isPackageCountData">
+            <eb-table :fields="packageCountFileds" :data="packageCount" v-if="packageCount.length > 0"></eb-table>
+            <div class="text-center font-weight-bold">No Data Available.</div>
+          </div>
+          <b-row class="mt-5 mb-5" v-else>
+            <b-col align="center">
+              <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5" />
+            </b-col>
+          </b-row>
         </b-card>
       </b-col>
     </b-row>
@@ -60,10 +86,16 @@ import axios from "axios";
 @Component({
   components: {
     PieChart,
-    ebTable
+    ebTable,
+    SemipolarSpinner
   }
 })
 export default class Home extends Vue {
+  private isSubscriberDetails: boolean = false;
+  private isComplaintDetails: boolean = false;
+  private isPackageCountData: boolean = false;
+  private isCollectionReport: boolean = false;
+
   private collectionReportFields: any = [
     {
       key: "PAYMENT_DATE",
@@ -122,6 +154,7 @@ export default class Home extends Vue {
       }
     });
     this.collectionReportData = result.data;
+    this.isCollectionReport = true;
   }
 
   private async getPackageCount() {
@@ -138,6 +171,7 @@ export default class Home extends Vue {
       }
     });
     this.packageCountData = result.data;
+    this.isPackageCountData = true;
   }
 
   private async subscriberDetailChart() {
@@ -171,6 +205,7 @@ export default class Home extends Vue {
 
     this.subscriberDetailsDatasets = datasets;
     this.subscriberlabels = lbl;
+    this.isSubscriberDetails = true;
     } catch (error) {
       console.log('error',error)
     }
@@ -188,7 +223,7 @@ export default class Home extends Vue {
         PARAMS: 7
       };
       const result = await openAndClosedComplaintsCount(data);
-      console.log('this is result',result);
+      console.log('this is log',result);
       const datasets = [
         {
           backgroundColor: ["#41B883", "#E46651"],
@@ -196,6 +231,7 @@ export default class Home extends Vue {
         }
       ];
       this.complaintDetailsDatasets = datasets;
+      this.isComplaintDetails = true;
     } catch (error) {
       console.log("error", error);
     }
