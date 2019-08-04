@@ -7,6 +7,7 @@ import DefaultContainer from '@/containers/DefaultContainer.vue';
 import Home from '@/views/Home.vue';
 import Customer from '@/views/MakeTransacation.vue';
 import AddPlan from '@/views/AddPlan.vue';
+import { store } from './store/store';
 
 Vue.use(Router);
 
@@ -16,21 +17,40 @@ export default new Router({
       path: '/',
       name: 'Dashboard',
       component: DefaultContainer,
+      beforeEnter: (to, from, next) => {
+        let user = JSON.parse(localStorage.getItem("user") as string);
+        if(store.getters['auth/getUserID'] || user){
+          next();
+        }
+        else{
+          next('Login');
+        }
+      },
       meta: { label: 'Dashboard' },
       children: [
         {
           path: '',
           component: Home,
+          meta: {
+            requiresAuth: true,
+          }
         },
         {
           path: 'customer',
-          meta: { label: 'customer '},
+          meta: { 
+            label: 'Customer',
+            requiresAuth: true,
+          },
           component: Customer,
         },
         {
           path: '/addPlan',
           name: 'addPlan',
           component: AddPlan,
+          meta: {
+            label: 'Add Plan',
+            requiresAuth: true,
+          }
         }
       ],
     },
@@ -43,11 +63,17 @@ export default new Router({
       path: '/logout',
       name: 'logout',
       component: Logout,
+      meta: {
+        requiresVisitor: true
+      },
     },
     {
       path: '/recoverpw',
       name: 'recoverpw',
       component: RecoverPassword,
+      meta: {
+        requiresVisitor: true
+      },
     },
   ],
 });
