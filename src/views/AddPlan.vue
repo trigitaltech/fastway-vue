@@ -25,8 +25,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import ebTable from "@/components/FormElements/TableList.vue";
-import { API } from "@/config";
-import axios from "axios";
+import { getPlanList, getPlanListById } from "@/services";
 
 @Component({
   components: {
@@ -54,23 +53,21 @@ export default class AddPlan extends Vue {
   private addPlanFieldsData: any = ([] = []);
 
   private async getAddPlanFieldsData() {
-    const data = {
-      USERID: "NARINDER1",
-      PASSWORD: "Fastway@123",
-      DEVICEIMEI: "352356079376711"
-    };
-    const result = await axios({
-      method: "POST",
-      url: API + "/getPlanList/",
-      headers: {
-        CREDS: JSON.stringify(data)
-      }
-    });
+    const result = await getPlanList(this.CREDS)
     this.addPlanFieldsData = result.data.PLAN_LIST;
+  }
+  
+  private async planListByID() {
+    const result = await getPlanListById(this.CREDS,6);
+    console.log('this is result ', result);
   }
 
   public mounted() {
     this.getAddPlanFieldsData();
+  }
+
+  get CREDS() {
+    return this.$store.getters['auth/getloginUser'];
   }
 }
 </script>

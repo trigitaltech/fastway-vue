@@ -56,3 +56,26 @@ export const dailyAndWeeklyCollectionReport = async (data: any) =>{
     });
     return result;
 }
+
+export const getPlanList = async (data: any) =>{
+    const result = await axios({
+        method: "POST",
+        url: API + "/getPlanList/",
+        headers: {
+          CREDS: JSON.stringify(data)
+        }
+    });
+    return result;
+}
+
+export const getPlanListById = async (creds: any, planId: any) =>{
+    const result = await axios({
+        method: "POST",
+        url: API + "/getPlanList/",
+        headers: {
+          CREDS: JSON.stringify(creds),
+          PLAN_LIST_ID: planId
+        }
+    });
+    return result;
+}

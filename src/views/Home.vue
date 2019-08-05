@@ -80,8 +80,6 @@ import PieChart from "@/components/dashboard/PieChart.vue";
 import ebTable from "@/components/FormElements/TableList.vue";
 import { SemipolarSpinner } from "epic-spinners";
 import { openAndClosedComplaintsCount,totalSubscriberCount,subscriberWiseActivePkgCount, dailyAndWeeklyCollectionReport } from "@/services";
-import { API } from "@/config";
-import axios from "axios";
 
 @Component({
   components: {
