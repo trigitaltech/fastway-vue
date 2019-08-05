@@ -9,8 +9,8 @@
           @change="accountTypeChange"
         ></b-form-select>
       </b-col>
-      <b-col md="10" class="mt-1">
-        <div class="app-search">
+      <b-col md="10">
+        <div>
           <div>
             <div class="input-group">
               <input
@@ -151,6 +151,12 @@ export default class MakeTransacation extends Vue {
       this.isLoading = true;
       const result = await getCustomerInfo(data);
       this.customerDetails = result.data;
+      const searchCustomerData = {
+        ACCOUNT_NO: this.customerDetails.ACCOUNT_NO,
+        ACCOUNT_POID: this.customerDetails.ACCOUNT_POID,
+        SERVICE_OBJ: this.customerDetails.SERVICE_OBJ,
+      }
+      this.$store.dispatch('auth/customer', searchCustomerData);
       const active: any[] = this.customerDetails.PLAN_DETAIL;
       this.PLAN_DETAIL = active.filter(e => e.PLAN_STATUS === "Active");
       this.isLoading = false;
@@ -162,7 +168,7 @@ export default class MakeTransacation extends Vue {
     }
   }
   private addplan() {
-    this.$router.push({ name: "addPlan" });
+    this.$router.push({ path: "/customer/add-plan" });
   }
 
   get CREDS() {

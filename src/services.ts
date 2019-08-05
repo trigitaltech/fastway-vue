@@ -69,12 +69,25 @@ export const getPlanList = async (data: any) =>{
 }
 
 export const getPlanListById = async (creds: any, planId: any) =>{
+
     const result = await axios({
         method: "POST",
-        url: API + "/getPlanList/",
+        url: API + "/getPlanListByID/",
         headers: {
           CREDS: JSON.stringify(creds),
           PLAN_LIST_ID: planId
+        }
+    });
+    return result;
+}
+
+export const AddNewPlan = async (creds: any, plans: any) =>{
+    const result = await axios({
+        method: "POST",
+        url: API + "/addPlan/",
+        headers: {
+          CREDS: JSON.stringify(creds),
+          PARAMS: JSON.stringify(plans)
         }
     });
     return result;

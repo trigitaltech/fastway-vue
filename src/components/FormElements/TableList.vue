@@ -3,6 +3,8 @@
     <b-row>
       <b-table
         hover
+        selectable
+        :select-mode="selectMode"
         head-variant="light"
         table-class="table-events-list"
         :responsive="true"
@@ -12,7 +14,12 @@
         :per-page="perPage"
         :current-page="currentPage"
         outlined
-      >
+        @row-selected="e => this.$emit('row-selected',e)">
+
+        <template slot="selected" slot-scope="{ rowSelected }">
+          <span v-if="rowSelected">✔</span>
+        </template>
+
       </b-table>
     </b-row>
 
@@ -39,7 +46,10 @@
           hide-goto-end-buttons
         />
       </div>
-      <div class="col-md"></div>
+      <div class="col-md mt-2 text-right">
+        <slot name="process">
+        </slot>
+      </div>
     </b-row>
   </div>
 </template>
@@ -63,7 +73,10 @@ export default class TableListComponent extends Vue {
 
   @Prop(String)
   public readonly filter!: string;
-  
+
+  @Prop({ default: 'single' })
+  public readonly selectMode!: string;
+
   @Prop({ default: 'w-25' })
   public readonly cssClass!: string;
 

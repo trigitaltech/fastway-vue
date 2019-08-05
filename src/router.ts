@@ -7,8 +7,7 @@ import DefaultContainer from '@/containers/DefaultContainer.vue';
 import Home from '@/views/Home.vue';
 import Customer from '@/views/MakeTransacation.vue';
 import AddPlan from '@/views/AddPlan.vue';
-import { store } from './store/store';
-
+import SelectedPlanDetails from '@/views/AddPlanDetails.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -45,7 +44,7 @@ export default new Router({
           component: {
             render(c) { return c('router-view'); },
           },
-          meta: { 
+          meta: {
             label: 'Customer',
             requiresAuth: true,
           },
@@ -56,12 +55,25 @@ export default new Router({
             },
             {
               path: 'add-plan',
-              name: 'addPlan',
-              component: AddPlan,
+              component: { render(c) { return c('router-view'); },},
               meta: {
-                label: 'Add New Plan',
-                requiresAuth: true,
-              }
+                label: 'Plans',
+              },
+              children:[
+                {
+                  path: '',
+                  component: AddPlan,
+                },
+                {
+                  path: 'details',
+                  name: 'plan-details',
+                  component: SelectedPlanDetails,
+                  meta: {
+                    label: 'Selected Details',
+                    requiresAuth: true,
+                  }
+                }
+              ]
             }
           ]
         },

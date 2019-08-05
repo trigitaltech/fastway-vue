@@ -17,6 +17,12 @@ export default class Auth extends VuexModule {
         PASSWORD: '',
     };
 
+    public searchCustomer: any = {
+        ACCOUNT_NO: '',
+        ACCOUNT_POID: '',
+        SERVICE_OBJ: '',
+    }
+
     @Mutation
     public setLoginUser(data: any) {
         this.loginUserData = data;
@@ -28,11 +34,24 @@ export default class Auth extends VuexModule {
     }
 
     get getloginUser() {
-        console.log('this is getter called',this.loginUserData);
         return this.loginUserData;
     }
 
     get getUserID() {
         return this.loginUserData.USERID;
+    }
+
+    @Mutation
+    public setSearchCustomer(data: any) {
+        this.searchCustomer = data;
+    }
+
+    @Action({ commit: 'setSearchCustomer' })
+    public customer(data: any) {
+        return data;
+    }
+
+    get getSearchCustomer() {
+        return this.searchCustomer;
     }
 }

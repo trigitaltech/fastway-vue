@@ -154,7 +154,7 @@ export default class Home extends Vue {
     try {
       const result = await totalSubscriberCount(this.CREDS);
       const output = result.data;
-      
+
       let lbl: any[] = [];
       let count: any[] = [];
       let color: any[] = [];
@@ -164,7 +164,7 @@ export default class Home extends Vue {
         count.push(e.COUNT_OF_CUSTOMER);
         color.push(this.colors[idx]);
       })
-      
+
       let datasets = [{
         backgroundColor:color,
         data: count
@@ -192,7 +192,7 @@ export default class Home extends Vue {
         count.push(e['COUNT(1)']);
         color.push(this.colors[idx]);
       })
-      
+
       let datasets = [{
         backgroundColor:color,
         data: count
