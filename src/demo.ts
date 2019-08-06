@@ -1,106 +1,3 @@
-<template>
-  <div class="container-fluid">
-    <b-row class="mb-4">
-      <b-col md="2">
-        <b-form-select
-          v-model="accountType"
-          :options="searchOption"
-          placeholder="Select Account Type"
-          @change="accountTypeChange"
-        ></b-form-select>
-      </b-col>
-      <b-col md="10">
-        <div>
-          <div>
-            <div class="input-group">
-              <input
-                type="text"
-                v-model="searchText"
-                class="form-control"
-                :placeholder="searchPlaceholder"
-              >
-              <span class="mdi mdi-magnify"></span>
-              <div class="input-group-append">
-                <button class="btn btn-primary" @click="searchCustomer">Search</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </b-col>
-    </b-row>
-    <b-row class="mt-5" v-if="isLoading">
-      <b-col align="center">
-        <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5"/>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-row v-show="isPlanDetails && !isLoading">
-          <b-col>
-            <customer-details-card :customerDetails="customerDetails"></customer-details-card>
-          </b-col>
-        </b-row>
-      </b-col>
-      <b-col>
-        <b-row v-show="isPlanDetails && !isLoading">
-          <b-col>
-            <b-card
-              header="Plan Details"
-              border-variant="info"
-              header-bg-variant="primary"
-              header-text-variant="white"
-            >
-              <div>
-                <div class="input-group">
-                  <input type="text" class="form-control" v-model="searchPlan">
-                  <span class="mdi mdi-magnify"></span>
-                  <div class="input-group-append">
-                    <b-button class="mb-3 btn-brand" variant="primary">Search</b-button>
-                    <b-button
-                      class="ml-5 mb-3 btn-brand"
-                      variant="primary"
-                      @click="addplan"
-                    >Add Plan</b-button>
-                  </div>
-                </div>
-              </div>
-              <eb-table
-                :filter="searchPlan"
-                :fields="planDetailsFields"
-                :data="PLAN_DETAIL"
-                selectMode="multi"
-                cssClass="w-50"
-                @row-selected="plansSelect"
-              >
-                <template v-slot:process>
-                  <b-button class="mb-3 btn-brand" variant="primary" @click="cancelPlan">Cancel Plan</b-button>
-                </template>
-              </eb-table>
-            </b-card>
-          </b-col>
-        </b-row>
-      </b-col>
-    </b-row>
-  </div>
-</template>
-<script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
-import { getCustomerInfo, cancelPlan as cancelPlanAPI } from "@/services";
-import { SemipolarSpinner } from "epic-spinners";
-import iCustomer from "@/Interface/ICustomer.ts";
-import ebInput from "@/components/FormElements/Input.vue";
-import CustomerDetailsCard from "@/components/Customer/CustomerDetailsCard.vue";
-import ebTable from "@/components/FormElements/TableList.vue";
-import Swal from "sweetalert2";
-
-@Component({
-  components: {
-    SemipolarSpinner,
-    ebInput,
-    CustomerDetailsCard,
-    ebTable
-  }
-})
 export default class MakeTransacation extends Vue {
     private selectedPlans: any[] = [];
     private customerDetails: iCustomer = {};
@@ -163,9 +60,6 @@ export default class MakeTransacation extends Vue {
             this.isLoading = true;
             const result = await getCustomerInfo(data);
             this.customerDetails = result.data;
-            this.isLoading = false;
-            this.isPlanDetails = true;
-            
             const searchCustomerData = {
                 ACCOUNT_NO: this.customerDetails.ACCOUNT_NO,
                 ACCOUNT_POID: this.customerDetails.ACCOUNT_POID,
@@ -175,6 +69,8 @@ export default class MakeTransacation extends Vue {
             this.$store.dispatch('auth/customer', searchCustomerData);
             const active: any[] = this.customerDetails.PLAN_LIST;
             this.PLAN_DETAIL = active[0].PLANS;
+            this.isLoading = false;
+            this.isPlanDetails = true;
         } catch (e) {
             this.isLoading = false;
             this.isPlanDetails = false;
@@ -193,7 +89,7 @@ export default class MakeTransacation extends Vue {
     private cancelPlan() {
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
+            text: 'You won't be able to revert this!',
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -237,4 +133,3 @@ export default class MakeTransacation extends Vue {
         return this.$store.getters['auth/getSearchCustomer'];
     }
 }
-</script>

@@ -6,7 +6,8 @@
           header="Selected Plan List"
           border-variant="info"
           header-bg-variant="primary"
-          header-text-variant="white">
+          header-text-variant="white"
+        >
           <eb-table :fields="planFields" :data="plans" cssClass="w-50">
             <template v-slot:process>
               <b-button class="mb-3 btn-brand" variant="primary" @click="save">Saved</b-button>
@@ -32,40 +33,42 @@ import { SemipolarSpinner } from "epic-spinners";
 export default class PlanDetails extends Vue {
   private planFields: any = [
     {
-      key: "CODE",
-      label: "Plan Code",
+      key: 'CODE',
+      label: 'Plan Code',
       sortable: true
     },
     {
-      key: "DESCRIPTION",
-      label: "Description",
+      key: 'DESCRIPTION',
+      label: 'Description',
       sortable: true
     },
     {
-      key: "PLAN_TYPE",
-      label: "Plan Type",
+      key: 'PLAN_TYPE',
+      label: 'Plan Type',
       sortable: true
     }
-  ]
+  ];
 
   private plans: any = ([] = []);
 
-  private planList: any= ([] = []);
+  private planList: any = ([] = []);
 
   private async save() {
     try {
       let data = {
         ...this.gePlanDetails,
-        PLAN_LIST: [{
-          ...this.planList[0],
-          PLANS:this.plans
-        }]
-      }
+        PLAN_LIST: [
+          {
+            ...this.planList[0],
+            PLANS: this.plans
+          }
+        ]
+      };
       const result = await AddNewPlan(this.CREDS, data);
       this.$toasted.success('plan added successfully');
-      this.$router.push({ path: "/customer" });
+      this.$router.push({ path: '/customer' });
     } catch (error) {
-      this.$toasted.error(error.response.data);
+      this.$toasted.error(error.ERROR_DESCR);
     }
   }
 
@@ -79,9 +82,8 @@ export default class PlanDetails extends Vue {
   }
 
   get gePlanDetails() {
-    return this.$store.getters["auth/getSearchCustomer"];
+    return this.$store.getters['auth/getSearchCustomer'];
   }
-
 }
 </script>
 

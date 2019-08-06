@@ -27,6 +27,7 @@
     "epic-spinners": "^1.1.0",
     "izitoast": "^1.4.0",
     "register-service-worker": "^1.6.2",
+    "sweetalert2": "^8.15.2",
     "vue": "^2.6.10",
     "vue-chartjs": "^3.4.2",
     "vue-class-component": "^7.0.2",

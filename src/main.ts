@@ -7,6 +7,7 @@ import './registerServiceWorker';
 import './assets/scss/custom.scss';
 import './assets/css/app.main.css';
 import Toasted from 'vue-toasted';
+import 'sweetalert2/src/sweetalert2.scss'
 
 const option = {
   theme: 'toasted-primary',

@@ -20,6 +20,10 @@
           <span v-if="rowSelected">✔</span>
         </template>
 
+        <template slot="PRODUCT_COUNT" slot-scope="data">
+          {{ data.item.PRODUCTS.length }}
+        </template>
+
       </b-table>
     </b-row>
 

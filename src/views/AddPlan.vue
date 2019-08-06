@@ -8,7 +8,7 @@
           header-bg-variant="primary"
           header-text-variant="white"
         >
-        <div>
+          <div>
             <div class="input-group">
               <input type="text" class="form-control" v-model="searchPlanList">
               <span class="mdi mdi-magnify"></span>
@@ -23,11 +23,17 @@
             cssClass="w-50"
             @row-selected="planSelected"
             :filter="searchPlanList"
+            v-if="!isPlanList"
           >
             <template v-slot:process>
               <b-button class="mb-3 btn-brand" variant="primary" @click="planListProcee">Process</b-button>
             </template>
           </eb-table>
+          <b-row class="mt-5 mb-5" v-else>
+            <b-col align="center">
+              <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5"/>
+            </b-col>
+          </b-row>
         </b-card>
       </b-col>
       <b-col>
@@ -38,7 +44,7 @@
           header-text-variant="white"
           v-show="isCallAPI"
         >
-        <div v-if="!isLoding">
+          <div v-if="!isLoding">
             <div class="input-group">
               <input type="text" class="form-control" v-model="searchPlan">
               <span class="mdi mdi-magnify"></span>
@@ -64,7 +70,6 @@
               >View Selected Plans</b-button>
             </template>
           </eb-table>
-
           <b-row class="mt-5 mb-5" v-else>
             <b-col align="center">
               <semipolar-spinner :animation-duration="2000" :size="65" color="#727cf5"/>
@@ -76,10 +81,10 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
-import ebTable from "@/components/FormElements/TableList.vue";
-import { getPlanList, getPlanListById } from "@/services";
-import { SemipolarSpinner } from "epic-spinners";
+import { Vue, Component } from 'vue-property-decorator';
+import ebTable from '@/components/FormElements/TableList.vue';
+import { getPlanList, getPlanListById } from '@/services';
+import { SemipolarSpinner } from 'epic-spinners';
 
 @Component({
   components: {
@@ -93,43 +98,43 @@ export default class AddPlan extends Vue {
 
   private addPlanFields: any = [
     {
-      key: "SERVICE_TYPE",
-      label: "Service Type",
+      key: 'SERVICE_TYPE',
+      label: 'Service Type',
       sortable: true
     },
     {
-      key: "PLAN_LIST_NAME",
-      label: "Plan List Name",
+      key: 'PLAN_LIST_NAME',
+      label: 'Plan List Name',
       sortable: true
     },
     {
-      key: "CITY",
-      label: "City",
+      key: 'CITY',
+      label: 'City',
       sortable: true
     }
   ];
 
   private planFields: any = [
     {
-      key: "CODE",
-      label: "Plan Code",
+      key: 'CODE',
+      label: 'Plan Code',
       sortable: true
     },
     {
-      key: "DESCRIPTION",
-      label: "Description",
+      key: 'DESCRIPTION',
+      label: 'Description',
       sortable: true
     },
     {
-      key: "PLAN_TYPE",
-      label: "Plan Type",
+      key: 'PLAN_TYPE',
+      label: 'Plan Type',
       sortable: true
     }
   ];
 
   private addPlanFieldsData: any = ([] = []);
 
-  private planListId: string = "";
+  private planListId: string = '';
 
   private selectPlanList: any = ([] = []);
 
@@ -139,10 +144,17 @@ export default class AddPlan extends Vue {
 
   private isLoding: boolean = false;
   private isCallAPI: boolean = false;
+  private isPlanList: boolean = false;
 
-  private async getAddPlanFieldsData() {
-    const result = await getPlanList(this.CREDS);
-    this.addPlanFieldsData = result.data.PLAN_LIST;
+  private async getPlanListAPI() {
+    try {
+      this.isPlanList = true;
+      const result = await getPlanList(this.CREDS);
+      this.addPlanFieldsData = result.data.PLAN_LIST;
+      this.isPlanList = false;
+    } catch (error) {
+      this.$toasted.error(error);
+    }
   }
 
   private planSelected(items: any[]) {
@@ -157,16 +169,20 @@ export default class AddPlan extends Vue {
   }
 
   private async planListProcee() {
-    this.isLoding = true;
-    this.isCallAPI = true;
-    const result = await getPlanListById(this.CREDS, this.planListId);
-    this.plans = result.data.ID_BASED_PLAN_LIST;
-    this.isLoding = false;
+    try {
+      this.isLoding = true;
+      this.isCallAPI = true;
+      const result = await getPlanListById(this.CREDS, this.planListId);
+      this.plans = result.data.ID_BASED_PLAN_LIST;
+      this.isLoding = false;
+    } catch (error) {
+      this.$toasted.error(error);
+    }
   }
 
   private addPlan() {
     this.$router.push({
-      name: "plan-details",
+      name: 'plan-details',
       params: {
         plans: this.selectedPlans,
         planList: this.selectPlanList
@@ -175,12 +191,11 @@ export default class AddPlan extends Vue {
   }
 
   public mounted() {
-    this.getAddPlanFieldsData();
+    this.getPlanListAPI();
   }
 
   get CREDS() {
-    return this.$store.getters["auth/getloginUser"];
+    return this.$store.getters['auth/getloginUser'];
   }
 }
 </script>
-
