@@ -64,7 +64,11 @@
                   </div>
                 </div>
               </div>
-              <eb-table :filter="searchPlan" :fields="planDetailsFields" :data="PLAN_DETAIL" cssClass="w-50"></eb-table>
+              <eb-table :filter="searchPlan" :fields="planDetailsFields" :data="PLAN_DETAIL" cssClass="w-50">
+                <template v-slot:process>
+                  <b-button class="mb-3 btn-brand" variant="primary">Cancel Plan</b-button>
+                </template>
+              </eb-table>
             </b-card>
           </b-col>
         </b-row>

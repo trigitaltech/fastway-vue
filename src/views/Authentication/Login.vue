@@ -7,7 +7,7 @@
             <div class="card mt-4">
               <!-- Logo -->
               <div class="card-header pt-3 pb-3 text-center bg-primary">
-                <span class="text-white font-weight-bold h2">Fastway</span>
+                <span class="text-white font-weight-bold h2">Trigital</span>
               </div>
               <div class="card-body p-4">
                 <div class="text-center w-75 m-auto">

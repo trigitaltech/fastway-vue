@@ -4,7 +4,7 @@
       <SidebarToggler class="d-lg-none" display="md" mobile/>
       <b-link class="navbar-brand" to="/">
         <span class="navbar-brand-full">
-          <img src="@/assets/images/fastway.png" class="w-50">
+          <img src="@/assets/images/trigital.jpg" class="w-50">
         </span>
       </b-link>
       <b-navbar-nav class="ml-auto">
@@ -28,13 +28,13 @@
         <div class="row">
           <div class="col-md-6">
             2018 - 2019 ©
-            <a href="http://trigital.in">Trigital</a>- Fastway
+            <a href="http://trigital.in">Trigital</a>- Trigital Technologies
           </div>
           <div class="col-md-6">
             <div class="text-md-right footer-links d-none d-md-block">
-              <a href="http://fastway.in/introduction.php" target="_blank" class="mr-2">About</a>
-              <a href="http://fastway.in/lcocomplaint/" target="_blank" class="mr-2">Support</a>
-              <a href="http://fastway.in/contact-us-99.php" target="_blank" class="mr-2">Contact Us</a>
+              <a href="http://trigital.in/" target="_blank" class="mr-2">About</a>
+              <a href="http://trigital.in/" target="_blank" class="mr-2">Support</a>
+              <a href="http://trigital.in/contact_us.php" target="_blank" class="mr-2">Contact Us</a>
             </div>
           </div>
         </div>
