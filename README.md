@@ -1,4 +1,4 @@
-# nipige-client-vue
+# Fastway
 
 ## Project setup
 ```
